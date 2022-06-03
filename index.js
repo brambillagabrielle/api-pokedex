@@ -1,5 +1,25 @@
 const page = document.querySelector('#pokedex-page')
 
+const color = {
+    grass: "#90EE90",
+    poison: "#9370DB",
+    water: "#87CEFA",
+    fire: "#FFA500",
+    flying: "#00BFFF",
+    bug: "#9ACD32",
+    normal: "#C0C0C0",
+    electric: "#FFFF00",
+    ground: "#EEE8AA",
+    fairy: "#FFE4E1",
+    fighting: "#D2691E",
+    psychic: "#EE82EE",
+    rock: "#CD853F",
+    steel: "#778899",
+    ice: "#00CED1",
+    ghost: "#7B68EE",
+    dragon: "#FA8072"
+}
+
 fetch('https://pokeapi.co/api/v2/pokemon?limit=150')
     .then(response => {
         return response.json()
@@ -20,10 +40,10 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=150')
                 const type = await pokemonType.json()
 
                 box.querySelector('#pokemon-type').innerHTML = ''
-                for(let i = 0; i < type.types.length; i++) {
+                for(let j = 0; j < type.types.length; j++) {
                     const nameType = document.createElement("span")
-                    nameType.appendChild(document.createTextNode(type.types[i].type.name))
-                    nameType.style.backgroundColor = color(type.types[i].type.name)
+                    nameType.appendChild(document.createTextNode(type.types[j].type.name))
+                    nameType.style.backgroundColor = color[type.types[j].type.name]
                     nameType.style.padding = "4px"
                     nameType.style.margin = "2px"
                     nameType.style.borderRadius = "4px"
@@ -33,26 +53,3 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=150')
                 page.innerHTML += box.outerHTML
            }
        })
-
-color = (typeName) => {
-    switch(typeName) {
-        case "grass": return "#90EE90"
-        case "poison": return "#9370DB"
-        case "water": return "#87CEFA"
-        case "fire": return "#FFA500"
-        case "flying": return "#00BFFF"
-        case "bug": return "#9ACD32"
-        case "normal": return "#C0C0C0"
-        case "electric": return "#FFFF00"
-        case "ground": return "#EEE8AA"
-        case "fairy": return "#FFE4E1"
-        case "fighting": return "#D2691E"
-        case "psychic": return "#EE82EE"
-        case "rock": return "#CD853F"
-        case "steel": return "#778899"
-        case "ice": return "#00CED1"
-        case "ghost": return "#7B68EE"
-        case "dragon": return "#FA8072"
-        default: return "#FFFFFF"
-    }
-}
